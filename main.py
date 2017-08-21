@@ -66,7 +66,7 @@ def reply(item, message):
             markup = item.forward_to.get_markup()
             bot.send_message(message.chat.id, item.text, reply_markup=markup)
             if item.forward_to == Menu['flow']:
-                FlowSubscription(message.chat.id)
+                FlowSubscription(chat_id=message.chat.id)
             if item.belongs_to == Menu['flow']:
                 FlowSubscription[message.chat.id].delete()
         else:
