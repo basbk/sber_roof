@@ -52,7 +52,7 @@ def handle_start(message):
 def handle_others(message):
     '''Handle other input from user, displaying different menus'''
 
-    m_item = MenuItem.select(title=message.text).first()
+    m_item = MenuItem.select(lambda m: m.title == message.text).first()
     if m_item != None:
         reply(m_item, message)
     
