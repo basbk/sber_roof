@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template, request
 from pony.orm import db_session, desc
-from models import Menu, MenuItem, Thesis
+from models import Menu, MenuItem, Thesis, FlowSubscription
 from config import bot_token
 import telebot
 import logging
@@ -54,7 +54,25 @@ def handle_others(message):
 
     m_item = MenuItem.get(title=message.text)
     if m_item != None:
-        m_item.send(bot, message)
+        reply(m_item, message)
+    
+
+
+def reply(item, message):
+        '''Send a message with all data'''
+        if item.image_id is not None and item.image_id is not '':
+            bot.send_photo(message.chat.id, item.image_id)
+        if item.forward_to is not None and item.forward_to is not '':
+            markup = item.forward_to.get_markup()
+            bot.send_message(message.chat.id, item.text, reply_markup=markup)
+            if item.forward_to == Menu['flow']:
+                FlowSubscription(message.chat.id)
+            if item.belongs_to == Menu['flow']:
+                FlowSubscription[message.chat.id].delete()
+        else:
+            bot.send_message(message.chat.id, item.text)
+        if item.video_id is not None and item.video_id is not '':
+            bot.send_video(message.chat.id, item.video_id)
 
 
 if __name__ == '__main__':

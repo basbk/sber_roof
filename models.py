@@ -11,25 +11,12 @@ db = Database()
 class MenuItem(db.Entity):
     '''Class, representing one item of menu'''
 
-    title = PrimaryKey(str)
+    title = Required(str)
     text = Required(str)
     belongs_to = Required('Menu')
     image_id = Optional(str, unique=True)
     video_id = Optional(str, unique=True)
     forward_to = Optional('Menu', reverse='from_items')
-
-    def send(self, bot, message):
-        '''Send a message with all data'''
-
-        if self.image_id is not None and self.image_id is not '':
-            bot.send_photo(message.chat.id, self.image_id)
-        if self.forward_to is not None and self.forward_to is not '':
-            markup = self.forward_to.get_markup()
-            bot.send_message(message.chat.id, self.text, reply_markup=markup)
-        else:
-            bot.send_message(message.chat.id, self.text)
-        if self.video_id is not None and self.video_id is not '':
-            bot.send_video(message.chat.id, self.video_id)
 
 
 class Menu(db.Entity):
@@ -50,8 +37,15 @@ class Menu(db.Entity):
 
 class Thesis(db.Entity):
     '''Class, representing thesis, containing info about the text and speaker'''
+    
     text = Required(str)
     speaker = Required(str)
+
+
+class FlowSubscription(db.Entity):
+    '''In this table there are people subscribed for getting thesises'''
+    
+    chat_id = PrimaryKey(int)
 
 
 db.bind(**postgres_config)
