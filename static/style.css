@@ -1,0 +1,35 @@
+#thesis_quote {
+    text-align: center;
+}
+
+blockquote {
+    font-family: Georgia, serif;
+    font-size: 48px;
+    font-style: italic;
+    width: 100%;
+    margin: 0.25em 0;
+    padding: 20% 0;
+    line-height: 1.45;
+    position: relative;
+    color: #383838;
+}
+
+blockquote:before {
+    content: "\201C";
+    font-size: 100px;
+    position: relative;
+    top: 25px;
+    color: #7a7a7a;
+    height: 0px;
+}
+
+blockquote cite {
+    color: #999999;
+    font-size: 24px;
+    display: block;
+    margin-top: 5px;
+}
+     
+blockquote cite:before {
+    content: "\2014 \2009";
+}

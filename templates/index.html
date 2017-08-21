@@ -1,0 +1,19 @@
+<head>
+    <link rel="stylesheet" href="static/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+    <blockquote id="thesis_quote">
+        <span id="thesis">Сколько писей не триси, одна капелька в трусы</span>
+        <cite id="speaker">Джейсон Стэтхем</cite>
+    </blockquote>
+    <script>
+    $(function() {
+        
+            $('#thesis').fadeOut(500, function() {
+                $(this).text('Some other text!').fadeIn(500);
+            });
+        
+        });
+    </script>
+</body>
