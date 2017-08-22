@@ -4,13 +4,13 @@
 </head>
 <body>
     <blockquote id="thesis_quote">
-        <span id="thesis">Сколько писей не триси, одна капелька в трусы</span>
+        <span id="thesis">Text</span>
         <cite id="speaker">Джейсон Стэтхем</cite>
     </blockquote>
     <script>
     (function poll() {
         setTimeout(function() {
-            $.ajax({ url: "/update", data: $('#thesis').text(), success: function(data) {
+            $.ajax({ url: "/update", data: ('text=' + $('#thesis').text()), success: function(data) {
                 $('#thesis').fadeOut(500, function() {
                     $(this).text(data.text).fadeIn(500);
                 });

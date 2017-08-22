@@ -22,10 +22,9 @@ def main():
 @app.route('/update')
 @db_session
 def update_thesis():
-    print(request.args['data'])
     data = {}
     last_thesis = Thesis.select().order_by(desc(Thesis.id))
-    if last_thesis.text != request.args['data']:
+    if last_thesis.text != request.args['text']:
         data['speaker'] = last_thesis.speaker
         data['text'] = last_thesis.text
         return data, 200
