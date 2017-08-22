@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from pony.orm import db_session, desc
 from models import Menu, MenuItem, Thesis, FlowSubscription, Admin
 from config import bot_token
@@ -22,12 +22,12 @@ def main():
 @app.route('/update')
 @db_session
 def update_thesis():
-    data = {}
     last_thesis = Thesis.select().order_by(desc(Thesis.id)).first()
     if last_thesis.text != request.args['text']:
+        data = {}
         data['speaker'] = last_thesis.speaker
         data['text'] = last_thesis.text
-        return data, 200
+        return jsonify(data)
     return '', 404
 
 
