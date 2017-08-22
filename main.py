@@ -23,7 +23,7 @@ def main():
 @db_session
 def update_thesis():
     data = {}
-    last_thesis = Thesis.select().order_by(desc(Thesis.id))
+    last_thesis = Thesis.select().order_by(desc(Thesis.id)).first()
     if last_thesis.text != request.args['text']:
         data['speaker'] = last_thesis.speaker
         data['text'] = last_thesis.text
