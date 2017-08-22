@@ -37,15 +37,23 @@ class Menu(db.Entity):
 
 class Thesis(db.Entity):
     '''Class, representing thesis, containing info about the text and speaker'''
-    
+
     text = Required(str)
     speaker = Required(str)
 
 
 class FlowSubscription(db.Entity):
     '''In this table there are people subscribed for getting thesises'''
-    
+
     chat_id = PrimaryKey(int)
+
+
+class Admin(db.Entity):
+    '''Table with list of users, who can send thesis'''
+
+    chat_id = PrimaryKey(int)
+    in_section = Required(bool)
+    choosen_speaker = Optional(str)
 
 
 db.bind(**postgres_config)
