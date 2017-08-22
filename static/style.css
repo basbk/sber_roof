@@ -1,5 +1,12 @@
+body {
+    background-image: url('bg.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 #thesis_quote {
     text-align: center;
+    word-wrap: normal;
 }
 
 blockquote {
@@ -8,7 +15,7 @@ blockquote {
     font-style: italic;
     width: 100%;
     margin: 0.25em 0;
-    padding: 20% 0;
+    padding: 13% 0 0 0;
     line-height: 1.45;
     position: relative;
     color: #383838;
