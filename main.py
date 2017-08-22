@@ -22,8 +22,14 @@ def main():
 @app.route('/update')
 @db_session
 def update_thesis():
+    print(request.args['data'])
+    data = {}
     last_thesis = Thesis.select().order_by(desc(Thesis.id))
-    return last_thesis.text
+    if last_thesis.text != request.args['data']:
+        data['speaker'] = last_thesis.speaker
+        data['text'] = last_thesis.text
+        return data, 200
+    return '', 404
 
 
 @app.route("/msg", methods=['POST'])

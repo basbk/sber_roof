@@ -8,12 +8,17 @@
         <cite id="speaker">Джейсон Стэтхем</cite>
     </blockquote>
     <script>
-    $(function() {
-        
-            $('#thesis').fadeOut(500, function() {
-                $(this).text('Some other text!').fadeIn(500);
-            });
-        
-        });
+    (function poll() {
+        setTimeout(function() {
+            $.ajax({ url: "/update", data: $('#thesis').text(), success: function(data) {
+                $('#thesis').fadeOut(500, function() {
+                    $(this).text(data.text).fadeIn(500);
+                });
+                $('#speaker').fadeOut(500, function() {
+                    $(this).text(data.speaker).fadeIn(500);
+                });
+            }, dataType: "json", complete: poll });
+         }, 1000);
+    })();
     </script>
 </body>
