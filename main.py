@@ -71,7 +71,8 @@ def handle_others(message):
     if m_item != None:
         reply(m_item, message)
     elif Admin.exists(chat_id=message.chat.id):
-        if Admin[message.chat.id].in_section and Admin[message.chat.id].choosen_speaker is not None:
+        admin = Admin[message.chat.id]
+        if admin.in_section and admin.choosen_speaker is not None and admin.choosen_speaker is not '':
             send_out_thesis(message)
     
 
@@ -81,11 +82,12 @@ def reply(item, message):
         if item.belongs_to == Menu['flow']:
             FlowSubscription[message.chat.id].delete()
         elif item.belongs_to == Menu['speakers'] and Admin.exists(chat_id=message.chat.id):
-            if Admin[message.chat.id].in_section:
+            admin = Admin[message.chat.id]
+            if admin.in_section:
                 if item.forward_to == Menu['start']:
-                    Admin[message.chat.id].in_section = False
+                    admin.in_section = False
                 else:
-                    Admin[message.chat.id].choosen_speaker = item.title
+                    admin.choosen_speaker = item.title
                     return
         if item.image_id is not None and item.image_id is not '':
             bot.send_photo(message.chat.id, item.image_id)
