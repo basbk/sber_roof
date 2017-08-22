@@ -110,8 +110,9 @@ def send_all_thesises(message):
 
 
 def send_out_thesis(message):
+    thesis = Thesis(speaker=Admin[message.chat.id].choosen_speaker, text=message.text)
     for sub in FlowSubscription.select():
-        bot.send_message(sub.chat_id, '{}: "{}"'.format(Admin[message.chat.id].choosen_speaker, message.text))
+        bot.send_message(sub.chat_id, '{}: "{}"'.format(thesis.speaker, thesis.text))
 
 
 if __name__ == '__main__':
