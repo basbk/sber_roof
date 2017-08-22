@@ -30,7 +30,7 @@ class Menu(db.Entity):
         '''Create a keyboard to send to user'''
 
         markup = ReplyKeyboardMarkup(True, False)
-        for item in self.items.select().order_by(item.id):
+        for item in self.items.select().order_by(MenuItem.id):
             markup.add(item.title)
         return markup
 
