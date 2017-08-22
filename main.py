@@ -61,6 +61,7 @@ def handle_others(message):
 def reply(item, message):
         '''Send a message with all data'''
         if item.belongs_to == Menu['flow']:
+            print('\nUnsubbed!\n')
             FlowSubscription[message.chat.id].delete(bulk=True)
         if item.image_id is not None and item.image_id is not '':
             bot.send_photo(message.chat.id, item.image_id)
@@ -68,7 +69,9 @@ def reply(item, message):
             markup = item.forward_to.get_markup()
             bot.send_message(message.chat.id, item.text, reply_markup=markup)
             if item.forward_to == Menu['flow']:
-                FlowSubscription(chat_id=message.chat.id)
+                if not FlowSubscription.exists(chat_id=message.chat.id):
+                    FlowSubscription(chat_id=message.chat.id)
+                    print('\nSubbed!\n')
         else:
             bot.send_message(message.chat.id, item.text)
         if item.video_id is not None and item.video_id is not '':
