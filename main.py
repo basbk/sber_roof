@@ -76,5 +76,7 @@ def reply(item, message):
 
 
 if __name__ == '__main__':
+    #bot.polling(none_stop=True)
     app.run(threaded=True, host="0.0.0.0", port=os.environ.get('PORT', 5000))
+    #app.run(debug=True)
     
