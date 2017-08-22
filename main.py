@@ -84,7 +84,9 @@ def reply(item, message):
         elif item.belongs_to == Menu['speakers'] and Admin.exists(chat_id=message.chat.id):
             admin = Admin[message.chat.id]
             if admin.in_section:
+                print('PAY!!!!!')
                 if item.forward_to == Menu['start']:
+                    print('HOPA!!!!!')
                     admin.in_section = False
                 else:
                     admin.choosen_speaker = item.title
