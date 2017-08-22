@@ -10,8 +10,8 @@ import logging
 app = Flask(__name__)
 
 bot = telebot.TeleBot(bot_token)
-#logger = telebot.logger
-#telebot.logger.setLevel(logging.DEBUG)
+logger = telebot.logger
+telebot.logger.setLevel(logging.DEBUG)
 
 
 @app.route('/')
