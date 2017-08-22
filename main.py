@@ -44,7 +44,7 @@ def webhook():
 def handle_start(message):
     '''Handling first interaction with user'''
 
-    bot.send_message(message.chat.id, 'Я знаю все о SBERROOF! Что подсказать?🤓', reply_markup=Menu['start'].get_markup())
+    bot.send_message(message.chat.id, 'Я знаю все о ВЫШЕ КРЫШ! Что подсказать?🤓', reply_markup=Menu['start'].get_markup())
 
 
 @bot.message_handler(content_types=['text'])
