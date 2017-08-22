@@ -82,7 +82,11 @@ def reply(item, message):
             FlowSubscription[message.chat.id].delete()
         elif item.belongs_to == Menu['speakers'] and Admin.exists(chat_id=message.chat.id):
             if Admin[message.chat.id].in_section:
-                Admin[message.chat.id].choosen_speaker = item.title
+                if item.forward_to == Menu['start']:
+                    Admin[message.chat.id].in_section = False
+                else:
+                    Admin[message.chat.id].choosen_speaker = item.title
+                    return
         if item.image_id is not None and item.image_id is not '':
             bot.send_photo(message.chat.id, item.image_id)
         if item.forward_to is not None and item.forward_to is not '':
