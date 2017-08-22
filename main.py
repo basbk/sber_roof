@@ -70,10 +70,16 @@ def reply(item, message):
             if item.forward_to == Menu['flow']:
                 if not FlowSubscription.exists(chat_id=message.chat.id):
                     FlowSubscription(chat_id=message.chat.id)
+                send_all_thesises(message)
         else:
             bot.send_message(message.chat.id, item.text)
         if item.video_id is not None and item.video_id is not '':
             bot.send_video(message.chat.id, item.video_id)
+
+
+def send_all_thesises(message):
+    for thesis in Thesis.select():
+        bot.send_message(message.chat.id, '{}: "{}"'.format(thesis.speaker, thesis.text))
 
 
 if __name__ == '__main__':
