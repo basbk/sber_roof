@@ -67,6 +67,11 @@ def handle_admin(message):
                         'Ты кто такой? Я тебя не звал! А нука возвращайся /start')
 
 
+@bot.message_handler(content_types=['photo'])
+def handle_photos(message):
+    print(message.photo[-1].file_id)
+
+
 @bot.message_handler(content_types=['text'])
 @db_session
 def handle_others(message):
