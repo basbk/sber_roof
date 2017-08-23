@@ -23,7 +23,9 @@ def main():
 @db_session
 def update_thesis():
     last_thesis = Thesis.select().order_by(desc(Thesis.id)).first()
-    if last_thesis.text != request.args['text']:
+    if last_thesis is None:
+        return '', 404
+    elif last_thesis.text != request.args['text']:
         data = {}
         data['speaker'] = last_thesis.speaker
         data['text'] = last_thesis.text
