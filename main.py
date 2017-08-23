@@ -105,9 +105,10 @@ def reply(item, message):
             markup = item.forward_to.get_markup()
             bot.send_message(message.chat.id, item.text, reply_markup=markup)
             if item.forward_to == Menu['flow']:
-                if not FlowSubscription.exists(chat_id=message.chat.id):
-                    FlowSubscription(chat_id=message.chat.id)
-                send_all_thesises(message)               
+                pass
+                #if not FlowSubscription.exists(chat_id=message.chat.id):
+                #    FlowSubscription(chat_id=message.chat.id)
+                #send_all_thesises(message)               
         else:
             bot.send_message(message.chat.id, item.text)
         if item.video_id is not None and item.video_id is not '':
