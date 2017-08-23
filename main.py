@@ -90,7 +90,8 @@ def handle_others(message):
 def reply(item, message):
         '''Send a message with all data'''
         if item.belongs_to == Menu['flow']:
-            FlowSubscription[message.chat.id].delete()
+            pass
+            #FlowSubscription[message.chat.id].delete()
         elif (item.belongs_to == Menu['speakers'] or item.forward_to == Menu['start']) and Admin.exists(chat_id=message.chat.id):
             admin = Admin[message.chat.id]
             if admin.in_section:
