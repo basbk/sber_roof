@@ -71,12 +71,14 @@ def handle_admin(message):
 
 @bot.message_handler(content_types=['photo'])
 def handle_photos(message):
-    print('PHOTO: ' + message.photo[-1].file_id)
+    if Admin.exists(chat_id=message.chat.id):
+        bot.send_message(message.chat.id, 'PHOTO: ' + message.photo[-1].file_id)
 
 
 @bot.message_handler(content_types=['video'])
 def handle_videos(message):
-    print('VIDEO: ' + message.video.file_id)
+    if Admin.exists(chat_id=message.chat.id):
+        bot.send_message(message.chat.id, 'VIDEO: ' + message.video.file_id)
 
 
 @bot.message_handler(content_types=['text'])
