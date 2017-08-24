@@ -1,7 +1,8 @@
 body {
-    background-image: url('http://s019.radikal.ru/i635/1708/88/3d2c0497d645.jpg');
+    background-image: url('http://s011.radikal.ru/i316/1708/d4/9a482484f75f.jpg');
     background-repeat: no-repeat;
     background-position: center;
+    background-size:contain;
 }
 
 #thesis_quote {
