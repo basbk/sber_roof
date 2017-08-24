@@ -75,7 +75,7 @@ def handle_photos(message):
 
 
 @bot.message_handler(content_types=['video'])
-def handle_photos(message):
+def handle_videos(message):
     print('VIDEO: ' + message.video[-1].file_id)
 
 
