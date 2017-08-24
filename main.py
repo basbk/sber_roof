@@ -24,13 +24,13 @@ def main():
 def update_thesis():
     last_thesis = Thesis.select().order_by(desc(Thesis.id)).first()
     if last_thesis is None:
-        return '', 404
+        return 'There is no thesises right now', 404
     elif last_thesis.text != request.args['text']:
         data = {}
         data['speaker'] = last_thesis.speaker
         data['text'] = last_thesis.text
         return jsonify(data)
-    return '', 404
+    return 'Nothing to update', 404
 
 
 @app.route("/msg", methods=['POST'])
@@ -71,7 +71,12 @@ def handle_admin(message):
 
 @bot.message_handler(content_types=['photo'])
 def handle_photos(message):
-    print(message.photo[-1].file_id)
+    print('PHOTO: ' + message.photo[-1].file_id)
+
+
+@bot.message_handler(content_types=['video'])
+def handle_photos(message):
+    print('VIDEO: ' + message.video[-1].file_id)
 
 
 @bot.message_handler(content_types=['text'])
