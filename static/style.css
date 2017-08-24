@@ -12,7 +12,7 @@ body {
 
 blockquote {
     font-family: Georgia, serif;
-    font-size: 48px;
+    font-size: 62px;
     font-style: italic;
     width: 100%;
     margin: 0.25em 0;
@@ -24,7 +24,7 @@ blockquote {
 
 blockquote:before {
     content: "\201C";
-    font-size: 100px;
+    font-size: 120px;
     position: relative;
     top: 25px;
     color: #7a7a7a;
@@ -33,7 +33,7 @@ blockquote:before {
 
 blockquote cite {
     color: #999999;
-    font-size: 24px;
+    font-size: 36px;
     display: block;
     margin-top: 5px;
 }
