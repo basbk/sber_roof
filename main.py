@@ -33,6 +33,12 @@ def update_thesis():
     return 'Nothing to update', 404
 
 
+@app.route('/promote')
+def promote():
+    bot.send_message('@SberRoof_chat', 'Бип-боп!🤖 Хэй, друзья!\nХотите освежить память и ознакомиться со всеми тезисами спикеров?\n' \
+                     'Милости прошу в свой новый раздел "Тезисы"😉')
+
+
 @app.route("/msg", methods=['POST'])
 def getMessage():
     bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
@@ -94,15 +100,15 @@ def handle_others(message):
     elif Admin.exists(chat_id=message.chat.id):
         admin = Admin[message.chat.id]
         if admin.in_section and admin.choosen_speaker is not None and admin.choosen_speaker is not '':
-            send_out_thesis(message)
+            pass
+            #send_out_thesis(message)
     
 
 
 def reply(item, message):
         '''Send a message with all data'''
-        if item.belongs_to == Menu['flow']:
-            pass
-            #FlowSubscription[message.chat.id].delete()
+        if item.belongs_to == Menu['speakers'] and item.forward_to == Menu['start']:
+            FlowSubscription[message.chat.id].delete()
         elif (item.belongs_to == Menu['speakers'] or item.forward_to == Menu['start']) and Admin.exists(chat_id=message.chat.id):
             admin = Admin[message.chat.id]
             if admin.in_section:
@@ -111,16 +117,18 @@ def reply(item, message):
                 else:
                     admin.choosen_speaker = item.title
                     return
+        elif item.belongs_to == Menu['speakers'] and FlowSubscription.exists(chat_id=message.chat.id):
+            for thesis in Thesis.select(lambda t: t.speaker == item.title):
+                bot.send_message(message.chat.id, thesis.text)
         if item.image_id is not None and item.image_id is not '':
             bot.send_photo(message.chat.id, item.image_id)
         if item.forward_to is not None and item.forward_to is not '':
             markup = item.forward_to.get_markup()
             bot.send_message(message.chat.id, item.text, reply_markup=markup)
             if item.forward_to == Menu['flow']:
-                pass
-                #if not FlowSubscription.exists(chat_id=message.chat.id):
-                #    FlowSubscription(chat_id=message.chat.id)
-                #send_all_thesises(message)               
+                if not FlowSubscription.exists(chat_id=message.chat.id):
+                    FlowSubscription(chat_id=message.chat.id)
+                bot.send_message(message.chat.id, item.text, reply_markup=Menu['speakers'].get_markup())               
         else:
             bot.send_message(message.chat.id, item.text)
         if item.video_id is not None and item.video_id is not '':
