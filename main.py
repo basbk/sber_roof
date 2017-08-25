@@ -117,7 +117,7 @@ def reply(item, message):
                 else:
                     admin.choosen_speaker = item.title
                     return
-        elif item.belongs_to == Menu['speakers'] and FlowSubscription.exists(chat_id=message.chat.id):
+        if item.belongs_to == Menu['speakers'] and FlowSubscription.exists(chat_id=message.chat.id):
             for thesis in Thesis.select(lambda t: t.speaker == item.title):
                 bot.send_message(message.chat.id, thesis.text)
         if item.image_id is not None and item.image_id is not '':
