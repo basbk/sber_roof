@@ -120,6 +120,7 @@ def reply(item, message):
         if item.belongs_to == Menu['speakers'] and FlowSubscription.exists(chat_id=message.chat.id):
             for thesis in Thesis.select(lambda t: t.speaker == item.title):
                 bot.send_message(message.chat.id, thesis.text)
+            return
         if item.image_id is not None and item.image_id is not '':
             bot.send_photo(message.chat.id, item.image_id)
         if item.forward_to is not None and item.forward_to is not '':
