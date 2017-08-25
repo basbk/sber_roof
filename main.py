@@ -129,7 +129,7 @@ def reply(item, message):
             if item.forward_to == Menu['flow']:
                 if not FlowSubscription.exists(chat_id=message.chat.id):
                     FlowSubscription(chat_id=message.chat.id)
-                bot.send_message(message.chat.id, item.text, reply_markup=Menu['speakers'].get_markup())               
+                    bot.send_message(message.chat.id, item.text, reply_markup=Menu['speakers'].get_markup())               
         else:
             bot.send_message(message.chat.id, item.text)
         if item.video_id is not None and item.video_id is not '':
