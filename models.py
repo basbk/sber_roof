@@ -56,5 +56,9 @@ class Admin(db.Entity):
     choosen_speaker = Optional(str)
 
 
+class Docs(db.Entity):
+    file_id = PrimaryKey(str)
+
+
 db.bind(**postgres_config)
 db.generate_mapping(create_tables=True)

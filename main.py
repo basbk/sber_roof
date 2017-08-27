@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template, request, jsonify
 from pony.orm import db_session, desc
-from models import Menu, MenuItem, Thesis, FlowSubscription, Admin
+from models import Menu, MenuItem, Thesis, FlowSubscription, Admin, Docs
 from config import bot_token
 import telebot
 import logging
@@ -89,6 +89,13 @@ def handle_videos(message):
         bot.send_message(message.chat.id, 'VIDEO: ' + message.video.file_id)
 
 
+@bot.message_handler(content_types=['document'])
+@db_session
+def handle_docs(message):
+    if Admin.exists(chat_id=message.chat.id):
+        bot.send_message(message.chat.id, 'DOCS: ' + message.document.file_id)
+
+
 @bot.message_handler(content_types=['text'])
 @db_session
 def handle_others(message):
@@ -107,6 +114,12 @@ def handle_others(message):
 
 def reply(item, message):
         '''Send a message with all data'''
+        if item.forward_to == Menu['presentation']:
+            markup = item.forward_to.get_markup()
+            bot.send_message(message.chat.id, item.text, reply_markup=markup)
+            for doc in Docs.select():
+                bot.send_document(message.chat.id, doc.file_id)
+            return
         if item.forward_to == Menu['start']:
             if FlowSubscription.exists(chat_id=message.chat.id):
                 FlowSubscription[message.chat.id].delete()
