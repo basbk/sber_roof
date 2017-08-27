@@ -57,7 +57,7 @@ class Admin(db.Entity):
 
 
 class Docs(db.Entity):
-    file_id = PrimaryKey(str)
+    file_id = Required(str)
 
 
 db.bind(**postgres_config)
