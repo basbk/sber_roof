@@ -117,8 +117,7 @@ def reply(item, message):
         if item.forward_to == Menu['presentation']:
             markup = item.forward_to.get_markup()
             bot.send_message(message.chat.id, item.text, reply_markup=markup)
-            for doc in select(d for d in Docs).order_by(Docs.id):
-                print('ID: ' + str(doc.id))
+            for doc in Docs.select():
                 bot.send_document(message.chat.id, doc.file_id)
             return
         if item.forward_to == Menu['start']:
