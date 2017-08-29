@@ -144,9 +144,9 @@ def reply(item, message):
                 bot.send_message(message.chat.id, item.text, reply_markup=Menu['speakers'].get_markup())       
                 return        
             markup = item.forward_to.get_markup()
-            bot.send_message(message.chat.id, item.text, reply_markup=markup, parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(message.chat.id, item.text, reply_markup=markup)
         else:
-            bot.send_message(message.chat.id, item.text)
+            bot.send_message(message.chat.id, item.text, parse_mode='Markdown', disable_web_page_preview=True)
         if item.video_id is not None and item.video_id is not '':
             bot.send_video(message.chat.id, item.video_id)
 
